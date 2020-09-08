@@ -1,35 +1,63 @@
-//Creating the HTML elements.
+///Creating the HTML elements.
 var header = document.createElement("header");
 var divTag1 = document.createElement("a");
 var divTag2 = document.createElement("div");
 var divTag3 = document.createElement("div");
-var h3El = document.createElement("h3");
+var h5El = document.createElement("h5");
 var pEl = document.createElement("p");
-var button = document.createElement("button");
+var startButton = document.createElement("button");
+var q1Button = document.createElement("button");
+var q2Button = document.createElement("button");
+var q3Button = document.createElement("button");
+var q4Button = document.createElement("button");
 
 //Adding content to the created element.
-divTag1.textContent = "View Higscores";
+divTag1.textContent = "View Highscores";
 divTag2.textContent = "Time: 0 ";
-h3El.textContent = "Coding Quiz Challenge";
+h5El.textContent = "Coding Quiz Challenge";
 pEl.textContent =
   "Try to answer the following code-related questions with the time limit. Keep in mind the incorrect answers will penalize your scoretime by ten seconds!";
-button.innerHTML = "Start Quiz";
+startButton.innerHTML = "Start Quiz";
+//q1Button.innerHTML = "";
 
 //Pending created element to an existing tag
 document.body.appendChild(header);
 header.appendChild(divTag1);
 header.appendChild(divTag2);
 document.body.appendChild(divTag3);
-divTag3.appendChild(h3El);
+divTag3.appendChild(h5El);
 divTag3.appendChild(pEl);
-divTag3.appendChild(button);
+divTag3.appendChild(startButton);
+divTag3.appendChild(q1Button);
+divTag3.appendChild(q2Button);
+divTag3.appendChild(q3Button);
+divTag3.appendChild(q4Button);
 
 //Styling Element
-h3El.setAttribute("style", "margin:auto; width:50%; text-align:center;");
+h5El.setAttribute("style", "margin:auto; width:50%; text-align:center;");
 pEl.setAttribute("style", "margin:auto; width:50%; text-align:center;");
 divTag1.setAttribute("style", "color:purple;");
 divTag2.setAttribute("style", "float:right;");
-button.setAttribute("style", "margin:auto; color:white; background:purple;  ");
+startButton.setAttribute(
+  "style",
+  "padding:10px; margin:auto; display: grid; width:auto; color:white; background:purple;  "
+);
+q1Button.setAttribute(
+  "style",
+  "margin:auto; display:grid; width:auto; float = left; color:white; background:purple;  "
+);
+q2Button.setAttribute(
+  "style",
+  "margin:auto; display:grid; width:auto; float = left; color:white; background:purple;  "
+);
+q3Button.setAttribute(
+  "style",
+  "margin:auto; display:grid; width:auto; float = left;color:white; background:purple;  "
+);
+q4Button.setAttribute(
+  "style",
+  "margin:auto; display:grid; width:auto; float = left; color:white; background:purple;  "
+);
 
 //Defining the quiz as an array of objects
 var quiz = [
@@ -82,20 +110,55 @@ var quiz = [
   },
 ];
 //Event listener for start button
-button.addEventListener("click", function (event) {
+startButton.addEventListener("click", function (event) {
   event.preventDefault();
   startTimer();
+  startQuiz();
 });
 
+//Timer for questions
 var count = 75;
+
 function startTimer() {
   var countDownTimer = setInterval(function () {
     divTag2.textContent = "Time: " + count;
     count--;
-    if (count < 0) {
+    if (count == 0) {
       clearInterval(countDownTimer);
     }
-    h3El.textContent = "Q1";
-    pEl.textContent = "C1";
   }, 1000);
+}
+
+//Setting up the quiz
+var i = 0;
+var score = 0;
+function startQuiz() {
+  if (i <= 4) {
+    //startButton.classList.add("hide"); not sure why this is not hiding the button
+    startButton.innerHTML = " ";
+    //h5El.textContent = "";
+    h5El.textContent = quiz[i].question;
+    pEl.textContent = "";
+    q1Button.innerHTML = quiz[i].one;
+    q2Button.innerHTML = quiz[i].two;
+    q3Button.innerHTML = quiz[i].three;
+    q4Button.innerHTML = quiz[i].four;
+    i++;
+    //Creating event listener for selection
+    divTag3.addEventListener("click", function (event) {
+      event.preventDefault();
+
+      //capture result from click
+      var result = event.target.outerText;
+      console.log(i);
+      if (result == quiz[4].answer) {
+        score += 10;
+        console.log(score);
+      } else {
+        count -= 5;
+        console.log(score);
+      }
+    });
+  }
+  return score;
 }

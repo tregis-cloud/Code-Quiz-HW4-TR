@@ -1,8 +1,9 @@
 ///Creating the HTML elements.
 var header = document.createElement("header");
-var divTag1 = document.createElement("a");
+var divTag1 = document.createElement("A");
 var divTag2 = document.createElement("div");
 var divTag3 = document.createElement("div");
+var divTag4 = document.createElement("div");
 var h5El = document.createElement("h5");
 var pEl = document.createElement("p");
 var startButton = document.createElement("button");
@@ -16,7 +17,7 @@ divTag1.textContent = "View Highscores";
 divTag2.textContent = "Time: 0 ";
 h5El.textContent = "Coding Quiz Challenge";
 pEl.textContent =
-  "Try to answer the following code-related questions with the time limit. Keep in mind the incorrect answers will penalize your scoretime by ten seconds!";
+  "Try to answer the following code-related questions with the time limit. Keep in mind the incorrect answers will penalize your score time by ten seconds!";
 startButton.innerHTML = "Start Quiz";
 //q1Button.innerHTML = "";
 
@@ -25,13 +26,14 @@ document.body.appendChild(header);
 header.appendChild(divTag1);
 header.appendChild(divTag2);
 document.body.appendChild(divTag3);
+document.body.appendChild(divTag4);
 divTag3.appendChild(h5El);
 divTag3.appendChild(pEl);
 divTag3.appendChild(startButton);
-divTag3.appendChild(q1Button);
-divTag3.appendChild(q2Button);
-divTag3.appendChild(q3Button);
-divTag3.appendChild(q4Button);
+divTag4.appendChild(q1Button);
+divTag4.appendChild(q2Button);
+divTag4.appendChild(q3Button);
+divTag4.appendChild(q4Button);
 
 //Styling Element
 h5El.setAttribute("style", "margin:auto; width:50%; text-align:center;");
@@ -52,7 +54,7 @@ q2Button.setAttribute(
 );
 q3Button.setAttribute(
   "style",
-  "margin:auto; display:grid; width:auto; float = left;color:white; background:purple;  "
+  "margin:auto; display:grid; width:auto; float = left; color:white; background:purple;  "
 );
 q4Button.setAttribute(
   "style",
@@ -113,13 +115,14 @@ var quiz = [
 startButton.addEventListener("click", function (event) {
   event.preventDefault();
   startTimer();
-  startQuiz();
+  renderQuestion();
 });
 
 //Timer for questions
 var count = 75;
 
 function startTimer() {
+  startButton.style.display = "none";
   var countDownTimer = setInterval(function () {
     divTag2.textContent = "Time: " + count;
     count--;
@@ -129,36 +132,40 @@ function startTimer() {
   }, 1000);
 }
 
-//Setting up the quiz
 var i = 0;
-var score = 0;
-function startQuiz() {
+//Setting up the quiz
+function renderQuestion() {
   if (i <= 4) {
-    //startButton.classList.add("hide"); not sure why this is not hiding the button
-    startButton.innerHTML = " ";
-    //h5El.textContent = "";
     h5El.textContent = quiz[i].question;
     pEl.textContent = "";
     q1Button.innerHTML = quiz[i].one;
     q2Button.innerHTML = quiz[i].two;
     q3Button.innerHTML = quiz[i].three;
     q4Button.innerHTML = quiz[i].four;
-    i++;
-    //Creating event listener for selection
-    divTag3.addEventListener("click", function (event) {
-      event.preventDefault();
-
-      //capture result from click
-      var result = event.target.outerText;
-      console.log(i);
-      if (result == quiz[4].answer) {
-        score += 10;
-        console.log(score);
-      } else {
-        count -= 5;
-        console.log(score);
-      }
-    });
+  } else {
+    gameOver();
   }
-  return score;
+}
+
+divTag4.addEventListener("click", function (event) {
+  event.preventDefault();
+  var result = event.target.outerText;
+  console.log(result + " for " + i);
+
+  //Compare captured result to answer
+
+  if (result == quiz[i].answer) {
+    console.log("Correct!");
+  } else {
+    count -= 10;
+    console.log("Wrong!");
+  }
+  i++;
+  setTimeout(function () {
+    renderQuestion();
+  }, 2000);
+});
+
+function gameOver() {
+  console.log("Game Over!");
 }

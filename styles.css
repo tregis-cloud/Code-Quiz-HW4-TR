@@ -6,3 +6,8 @@
 .test1 {
   margin: 0 auto;
 }
+
+h2 {
+  text-align: center;
+  color: purple;
+}

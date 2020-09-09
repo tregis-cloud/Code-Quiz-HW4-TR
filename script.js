@@ -202,7 +202,7 @@ divTag4.addEventListener("click", function (event) {
   i++;
   setTimeout(function () {
     renderQuestion();
-  }, 2000);
+  }, 1700);
 });
 
 function gameOver() {
@@ -212,22 +212,30 @@ function gameOver() {
   q3Button.style.display = "none";
   q4Button.style.display = "none";
   h4El.textContent = "All Done!";
-  //divTag2.textContent = "Time: " + score;
+  divTag2.textContent = "Time: 0 "; //
+  pEl2.textContent = "";
   pEl.textContent = "You score is " + score;
   divTag6.style.display = "block";
   storeData();
 }
 
+//Storing data after submit button is clicked
 function storeData() {
-  //1. Get data from input
   submitButton.addEventListener("click", function (event) {
     event.preventDefault();
+    divTag6.style.display = "none";
     var initials = inputEl.value;
 
     var obj = { intials: initials, score: score };
 
-    console.log(initials);
-    JSON.stringify(obj);
-    localStorage.setItem("Test", JSON.stringify(obj));
+    var quizScores = JSON.stringify(obj);
+    localStorage.setItem("Test", quizScores);
   });
+  retrieveData();
+}
+
+function retrieveData() {
+  var quizScores = localStorage.getItem("Test");
+  obj = JSON.parse(quizScores);
+  console.log(obj);
 }

@@ -24,6 +24,7 @@ h4El.textContent = "Coding Quiz Challenge";
 pEl.textContent =
   "Try to answer the following code-related questions with the time limit. Keep in mind the incorrect answers will penalize your score time by ten seconds!";
 startButton.innerHTML = "Start Quiz";
+submitButton.innerHTML = "Submit";
 
 //Adding href to anchor tag
 divTag1.href = "./highScores.html";
@@ -76,11 +77,16 @@ q4Button.setAttribute(
   "margin:auto; display:grid; width:auto; float = left; color:white; background:purple;  "
 );
 
+startButton.setAttribute(
+  "style",
+  "padding:10px; margin:auto; display: grid; width:auto; color:white; background:purple;  "
+);
 //Hide choices button at start
 q1Button.style.display = "none";
 q2Button.style.display = "none";
 q3Button.style.display = "none";
 q4Button.style.display = "none";
+divTag6.style.display = "none";
 
 //Defining the quiz as an array of objects
 var quiz = [
@@ -206,8 +212,7 @@ function gameOver() {
   q3Button.style.display = "none";
   q4Button.style.display = "none";
   h4El.textContent = "All Done!";
-  divTag2.textContent = "Time: " + score; //Not sure why this is not working? It's still showing time from count.
-  console.log((divTag2.textContent = "Time: " + score));
+  divTag2.textContent = "Time: " + score;
   pEl.textContent = "You score is " + score;
-  //formEl.submit();
+  divTag6.style.display = "block";
 }

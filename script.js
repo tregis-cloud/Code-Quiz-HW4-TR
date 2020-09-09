@@ -25,7 +25,8 @@ pEl.textContent =
   "Try to answer the following code-related questions with the time limit. Keep in mind the incorrect answers will penalize your score time by ten seconds!";
 startButton.innerHTML = "Start Quiz";
 submitButton.innerHTML = "Submit";
-
+inputEl.setAttribute("value", "placeholder");
+inputEl.setAttribute("id", "initial_input");
 //Adding href to anchor tag
 divTag1.href = "./highScores.html";
 console.log((divTag1.href = "./highScores.html"));
@@ -192,11 +193,9 @@ divTag4.addEventListener("click", function (event) {
   //Compare captured result to answer
 
   if (result == quiz[i].answer) {
-    console.log("Correct!");
     pEl2.textContent = "Correct!";
   } else {
     count -= 10;
-    console.log("Wrong!");
     pEl2.textContent = "Wrong!";
   }
   i++;
@@ -212,7 +211,15 @@ function gameOver() {
   q3Button.style.display = "none";
   q4Button.style.display = "none";
   h4El.textContent = "All Done!";
-  divTag2.textContent = "Time: " + score;
+  //divTag2.textContent = "Time: " + score;
   pEl.textContent = "You score is " + score;
   divTag6.style.display = "block";
+  storeData();
+}
+
+function storeData() {
+  //1. Get data from input
+
+  var initials = inputEl.value;
+  console.log(initials);
 }

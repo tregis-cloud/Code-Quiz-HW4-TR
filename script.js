@@ -25,8 +25,8 @@ pEl.textContent =
   "Try to answer the following code-related questions with the time limit. Keep in mind the incorrect answers will penalize your score time by ten seconds!";
 startButton.innerHTML = "Start Quiz";
 submitButton.innerHTML = "Submit";
-inputEl.setAttribute("value", "placeholder");
-inputEl.setAttribute("id", "initial_input");
+//inputEl.setAttribute("value", "placeholder");
+//inputEl.setAttribute("id", "initial_input");
 //Adding href to anchor tag
 divTag1.href = "./highScores.html";
 console.log((divTag1.href = "./highScores.html"));
@@ -54,6 +54,7 @@ divTag6.appendChild(submitButton);
 h4El.setAttribute("style", "margin:auto; width:50%; text-align:center;");
 pEl.setAttribute("style", "margin:auto; width:50%; text-align:center;");
 pEl2.setAttribute("style", "margin:auto; width:50%; text-align:center;");
+inputEl.setAttribute("class", "test1");
 
 divTag1.setAttribute("style", "color:purple;");
 divTag2.setAttribute("style", "float:right;");
@@ -219,7 +220,14 @@ function gameOver() {
 
 function storeData() {
   //1. Get data from input
+  submitButton.addEventListener("click", function (event) {
+    event.preventDefault();
+    var initials = inputEl.value;
 
-  var initials = inputEl.value;
-  console.log(initials);
+    var obj = { intials: initials, score: score };
+
+    console.log(initials);
+    JSON.stringify(obj);
+    localStorage.setItem("Test", JSON.stringify(obj));
+  });
 }

@@ -2,3 +2,7 @@
 ::after {
   box-sizing: boarder-box;
 }
+
+.test1 {
+  margin: 0 auto;
+}

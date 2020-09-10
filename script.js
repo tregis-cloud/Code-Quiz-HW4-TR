@@ -1,21 +1,25 @@
-///Creating the HTML elements.
+//Creating the HTML elements.
 var header = document.createElement("header");
+var h2El = document.createElement("h2");
 var divTag1 = document.createElement("A");
 var divTag2 = document.createElement("div");
 var divTag3 = document.createElement("div");
 var divTag4 = document.createElement("div");
 var divTag5 = document.createElement("div");
 var divTag6 = document.createElement("div");
+var divTag7 = document.createElement("div");
 var h4El = document.createElement("h4");
 var pEl = document.createElement("p");
 var pEl2 = document.createElement("p");
 var inputEl = document.createElement("input");
+var searchInput = document.createElement("input");
 var startButton = document.createElement("button");
 var q1Button = document.createElement("button");
 var q2Button = document.createElement("button");
 var q3Button = document.createElement("button");
 var q4Button = document.createElement("button");
 var submitButton = document.createElement("button");
+var findScoreButton = document.createElement("button");
 
 //Adding content to the created element.
 divTag1.textContent = "View Highscores";
@@ -24,21 +28,20 @@ h4El.textContent = "Coding Quiz Challenge";
 pEl.textContent =
   "Try to answer the following code-related questions with the time limit. Keep in mind the incorrect answers will penalize your score time by ten seconds!";
 startButton.innerHTML = "Start Quiz";
+findScoreButton.innerHTML = "Submit";
 submitButton.innerHTML = "Submit";
-//inputEl.setAttribute("value", "placeholder");
-//inputEl.setAttribute("id", "initial_input");
-//Adding href to anchor tag
 divTag1.href = "./highScores.html";
-console.log((divTag1.href = "./highScores.html"));
 
 //Pending created element to an existing tag
 document.body.appendChild(header);
+document.body.appendChild(h2El);
 header.appendChild(divTag1);
 header.appendChild(divTag2);
 document.body.appendChild(divTag3);
 document.body.appendChild(divTag4);
 document.body.appendChild(divTag5);
 document.body.appendChild(divTag6);
+document.body.appendChild(divTag7);
 divTag3.appendChild(h4El);
 divTag3.appendChild(pEl);
 divTag3.appendChild(startButton);
@@ -49,15 +52,25 @@ divTag4.appendChild(q4Button);
 divTag5.appendChild(pEl2);
 divTag6.appendChild(inputEl);
 divTag6.appendChild(submitButton);
+divTag7.appendChild(searchInput);
+divTag7.appendChild(findScoreButton);
 
-//Styling Element
+//Styling Elements
 h4El.setAttribute("style", "margin:auto; width:50%; text-align:center;");
+h4El.setAttribute("class", "pb-2 ");
 pEl.setAttribute("style", "margin:auto; width:50%; text-align:center;");
+pEl.setAttribute("class", "pb-2");
 pEl2.setAttribute("style", "margin:auto; width:50%; text-align:center;");
 inputEl.setAttribute("class", "test1");
 
 divTag1.setAttribute("style", "color:purple;");
 divTag2.setAttribute("style", "float:right;");
+divTag6.setAttribute("class", "text-center");
+startButton.setAttribute(
+  "style",
+  "padding:10px; margin:auto; display: grid; width:auto; color:white; background:purple;  "
+);
+divTag7.setAttribute("class", "text-center");
 startButton.setAttribute(
   "style",
   "padding:10px; margin:auto; display: grid; width:auto; color:white; background:purple;  "
@@ -79,7 +92,11 @@ q4Button.setAttribute(
   "margin:auto; display:grid; width:auto; float = left; color:white; background:purple;  "
 );
 
-startButton.setAttribute(
+submitButton.setAttribute(
+  "style",
+  "padding:10px; margin:auto; display: grid; width:auto; color:white; background:purple;  "
+);
+findScoreButton.setAttribute(
   "style",
   "padding:10px; margin:auto; display: grid; width:auto; color:white; background:purple;  "
 );
@@ -89,6 +106,7 @@ q2Button.style.display = "none";
 q3Button.style.display = "none";
 q4Button.style.display = "none";
 divTag6.style.display = "none";
+divTag7.style.display = "none";
 
 //Defining the quiz as an array of objects
 var quiz = [
@@ -149,10 +167,12 @@ startButton.addEventListener("click", function (event) {
 
 //Timer for questions
 var count = 75;
-var score;
+var score = 0;
 var countDownTimer;
 function startTimer() {
   startButton.style.display = "none";
+  findScoreButton.style.display = "none";
+
   countDownTimer = setInterval(function () {
     divTag2.textContent = "Time: " + count;
     count--;
@@ -189,7 +209,6 @@ function renderQuestion() {
 divTag4.addEventListener("click", function (event) {
   event.preventDefault();
   var result = event.target.outerText;
-  console.log(result + " for " + i);
 
   //Compare captured result to answer
 
@@ -202,7 +221,7 @@ divTag4.addEventListener("click", function (event) {
   i++;
   setTimeout(function () {
     renderQuestion();
-  }, 1700);
+  }, 1500);
 });
 
 function gameOver() {
@@ -212,9 +231,10 @@ function gameOver() {
   q3Button.style.display = "none";
   q4Button.style.display = "none";
   h4El.textContent = "All Done!";
-  divTag2.textContent = "Time: 0 "; //
+  divTag2.textContent = "Time: 0 ";
   pEl2.textContent = "";
-  pEl.textContent = "You score is " + score;
+  pEl.textContent =
+    "You score is " + score + "." + " Please enter your initials to save.";
   divTag6.style.display = "block";
   storeData();
 }
@@ -224,6 +244,7 @@ function storeData() {
   submitButton.addEventListener("click", function (event) {
     event.preventDefault();
     divTag6.style.display = "none";
+    pEl.textContent = "";
     var initials = inputEl.value;
 
     var obj = { intials: initials, score: score };
@@ -234,8 +255,19 @@ function storeData() {
   retrieveData();
 }
 
+divTag1.addEventListener("click", function () {
+  event.preventDefault();
+  h2El.textContent = "High Scores";
+  divTag1.textContent = "";
+  divTag2.textContent = "";
+  h4El.textContent = "";
+  pEl.textContent = "";
+  startButton.style.display = "none";
+  divTag6.style.diaplay = "none";
+  divTag7.style.display = "block";
+});
+
 function retrieveData() {
   var quizScores = localStorage.getItem("Test");
   obj = JSON.parse(quizScores);
-  console.log(obj);
 }

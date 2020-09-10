@@ -12,7 +12,7 @@ var h4El = document.createElement("h4");
 var pEl = document.createElement("p");
 var pEl2 = document.createElement("p");
 var inputEl = document.createElement("input");
-var searchInput = document.createElement("input");
+var outPutEl = document.createElement("input");
 var startButton = document.createElement("button");
 var q1Button = document.createElement("button");
 var q2Button = document.createElement("button");
@@ -54,7 +54,7 @@ divTag4.appendChild(q4Button);
 divTag5.appendChild(pEl2);
 divTag6.appendChild(inputEl);
 divTag6.appendChild(submitButton);
-divTag7.appendChild(searchInput);
+divTag7.appendChild(outPutEl);
 divTag7.appendChild(goBackButton);
 divTag7.appendChild(clearScoresButton);
 
@@ -262,6 +262,7 @@ function storeData() {
   retrieveData();
 }
 
+//Creating a listener to navigate from home page to highscores page
 divTag1.addEventListener("click", function () {
   event.preventDefault();
   h2El.textContent = "Highscores";
@@ -272,12 +273,15 @@ divTag1.addEventListener("click", function () {
   startButton.style.display = "none";
   divTag6.style.diaplay = "none";
   divTag7.style.display = "block";
+  //retrieveData();
 });
 
 //These functions would be implemented fully in a later version
 function retrieveData() {
+  divTag7.style.display = "block";
   var quizScores = localStorage.getItem("Test");
   obj = JSON.parse(quizScores);
+  console.log((outPutEl.textContent = obj));
 }
 
 goBackButton.addEventListener("click", function () {

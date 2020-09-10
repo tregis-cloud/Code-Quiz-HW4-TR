@@ -278,7 +278,6 @@ divTag1.addEventListener("click", function () {
 
 //These functions would be implemented fully in a later version
 function retrieveData() {
-  divTag7.style.display = "block";
   var quizScores = localStorage.getItem("Test");
   obj = JSON.parse(quizScores);
   console.log((outPutEl.textContent = obj));

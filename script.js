@@ -251,6 +251,7 @@ function storeData() {
   submitButton.addEventListener("click", function (event) {
     event.preventDefault();
     divTag6.style.display = "none";
+    goBackButton.style.display = "block";
     pEl.textContent = "";
     var initials = inputEl.value;
 
@@ -273,14 +274,12 @@ divTag1.addEventListener("click", function () {
   startButton.style.display = "none";
   divTag6.style.diaplay = "none";
   divTag7.style.display = "block";
-  //retrieveData();
 });
 
 //These functions would be implemented fully in a later version
 function retrieveData() {
   var quizScores = localStorage.getItem("Test");
   obj = JSON.parse(quizScores);
-  console.log((outPutEl.textContent = obj));
 }
 
 goBackButton.addEventListener("click", function () {

@@ -19,7 +19,8 @@ var q2Button = document.createElement("button");
 var q3Button = document.createElement("button");
 var q4Button = document.createElement("button");
 var submitButton = document.createElement("button");
-var findScoreButton = document.createElement("button");
+var goBackButton = document.createElement("button");
+var clearScoresButton = document.createElement("button");
 
 //Adding content to the created element.
 divTag1.textContent = "View Highscores";
@@ -28,7 +29,8 @@ h4El.textContent = "Coding Quiz Challenge";
 pEl.textContent =
   "Try to answer the following code-related questions with the time limit. Keep in mind the incorrect answers will penalize your score time by ten seconds!";
 startButton.innerHTML = "Start Quiz";
-findScoreButton.innerHTML = "Submit";
+goBackButton.innerHTML = "Go Back";
+clearScoresButton.innerHTML = "Clear Highscores ";
 submitButton.innerHTML = "Submit";
 divTag1.href = "./highScores.html";
 
@@ -53,7 +55,8 @@ divTag5.appendChild(pEl2);
 divTag6.appendChild(inputEl);
 divTag6.appendChild(submitButton);
 divTag7.appendChild(searchInput);
-divTag7.appendChild(findScoreButton);
+divTag7.appendChild(goBackButton);
+divTag7.appendChild(clearScoresButton);
 
 //Styling Elements
 h4El.setAttribute("style", "margin:auto; width:50%; text-align:center;");
@@ -96,7 +99,11 @@ submitButton.setAttribute(
   "style",
   "padding:10px; margin:auto; display: grid; width:auto; color:white; background:purple;  "
 );
-findScoreButton.setAttribute(
+goBackButton.setAttribute(
+  "style",
+  "padding:10px; margin:auto; display: grid; width:auto; color:white; background:purple;  "
+);
+clearScoresButton.setAttribute(
   "style",
   "padding:10px; margin:auto; display: grid; width:auto; color:white; background:purple;  "
 );
@@ -171,7 +178,7 @@ var score = 0;
 var countDownTimer;
 function startTimer() {
   startButton.style.display = "none";
-  findScoreButton.style.display = "none";
+  goBackButton.style.display = "none";
 
   countDownTimer = setInterval(function () {
     divTag2.textContent = "Time: " + count;
@@ -257,7 +264,7 @@ function storeData() {
 
 divTag1.addEventListener("click", function () {
   event.preventDefault();
-  h2El.textContent = "High Scores";
+  h2El.textContent = "Highscores";
   divTag1.textContent = "";
   divTag2.textContent = "";
   h4El.textContent = "";
@@ -267,7 +274,13 @@ divTag1.addEventListener("click", function () {
   divTag7.style.display = "block";
 });
 
+//These functions would be implemented fully in a later version
 function retrieveData() {
   var quizScores = localStorage.getItem("Test");
   obj = JSON.parse(quizScores);
 }
+
+goBackButton.addEventListener("click", function () {
+  event.preventDefault();
+  location.href = "./index.html";
+});
